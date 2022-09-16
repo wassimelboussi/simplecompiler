@@ -8,13 +8,14 @@ public class Token {
     private int positionStart;
     private int positionEnd;
 
-    Token(TokenType type, String value, int positionStart, int positionEnd){
+    Token(TokenType type, String value, int positionStart, int positionEnd) {
         this.type = type;
         this.value = value;
         this.positionStart = positionStart;
         this.positionEnd = positionEnd;
     }
-    Token(TokenType type, String value, int positionStart){
+
+    Token(TokenType type, String value, int positionStart) {
         this.type = type;
         this.value = value;
         this.positionStart = positionStart;
@@ -22,7 +23,7 @@ public class Token {
     }
 
 
-    Token(TokenType type){
+    Token(TokenType type) {
         this.type = type;
     }
 
