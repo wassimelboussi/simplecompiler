@@ -44,27 +44,31 @@ public class Lexer {
     }
 
     private ArrayList<Character> initialize(String code) {
-        ArrayList<Character> list = new ArrayList<Character>();
+        ArrayList<Character> list = new ArrayList<>();
         for (int i = 0; i < getCodeLength(); i++) {
             list.add(code.charAt(i));
         }
         return list;
     }
 
-    int tokenizer(String code) {
-        ArrayList<Character> characters = new ArrayList<Character>();
+     Object[] tokenizer(String code) {
+        ArrayList<Character> characters;
         characters = initialize(code);
-        ArrayList<Token> tokens = new ArrayList<Token>();
+        ArrayList<Token> tokens = new ArrayList<>();
         Token abc = new Token(TokenType.CONDITION);
-        for (int i = 1; i < characters.size() - 1; i++) {
-            if (characters.get(i) == 'i' && characters.get(i + 1) == 'f' && characters.get(i + 2) == '(') {
-                tokens.add(new Token(TokenType.CONDITION, "if", i, i + 1));
-                tokens.add(new Token(TokenType.CONDITION, "(", characters.get('('), characters.get('(') + 1));
-                tokens.add(abc);
-                System.out.println("Token found. True");
+        for (int i = 0; i <= characters.size() - 1; i++) {
+            try {
+                if (characters.get(i) == 'i' && characters.get(i + 1) == 'f' && characters.get(i + 2) == '(') {
+                    tokens.add(new Token(TokenType.CONDITION, "if", i, i + 1));
+                    tokens.add(new Token(TokenType.CONDITION, "(", characters.get('('), characters.get('(') + 1));
+                    tokens.add(abc);
+                    System.out.println("Token found. True");
+                }
+            } catch (Exception e) {
+
             }
         }
-        return tokens.size();
+        return new ArrayList[]{tokens};
     }
 
 //    String createToken(LinkedList ll) {
