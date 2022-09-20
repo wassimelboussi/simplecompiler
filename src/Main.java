@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String path = "";
-        Path path = Path.of(path);
+        String pathOfFile = "";
+        Path path = Path.of(pathOfFile);
         ReadFiles reader = new ReadFiles(path);
         String code = reader.readToString(String.valueOf(path));
 
