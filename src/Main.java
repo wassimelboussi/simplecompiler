@@ -6,7 +6,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Path path = Path.of("C:\\Users\\Wassim\\IdeaProjects\\simplecompiler\\src\\text.txt");
+        String path = "";
+        Path path = Path.of(path);
         ReadFiles reader = new ReadFiles(path);
         String code = reader.readToString(String.valueOf(path));
 
