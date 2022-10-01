@@ -1,8 +1,6 @@
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -11,25 +9,14 @@ public class Main {
         ReadFiles reader = new ReadFiles(path);
         String code = reader.readToString(String.valueOf(path));
 
-        Lexer myLexer = new Lexer(reader.readToString(String.valueOf(path)));
-//
-//        System.out.println("Length is: " + myLexer.getCodeLength());
-//        String tokenized = String.valueOf(myLexer.tokenizer(code));
-//        System.out.println("Tokenized: " + tokenized);
-//
-//        System.out.println("My token size is: " + myLexer.tokenizer(code));
-//        System.out.println((Arrays.toString(myLexer.tokenizer(code))));
-
-        Object[] outputs;
-        outputs = myLexer.tokenizer(code);
-
+        ArrayList<Token> listOfTokens = new Lexer().tokenizer(code);
         try {
-            for (int i = 0; i < code.length(); i++) {
-                System.out.println(outputs[i].toString());
+            for (Token token : listOfTokens) {
+                System.out.println(token.getValue());
+                System.out.println(token.getType());
             }
-        } catch (Exception e) {
-
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("error");
         }
-
     }
 }
