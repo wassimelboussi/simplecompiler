@@ -1,79 +1,70 @@
 import java.util.ArrayList;
 
 public class Lexer {
-    private String code;
-    private int codeLength;
-    private int currentChar;
-    private Token currentToken;
-    private Token previousToken;
+   public TokenType nextTokenType(String input, int marker) {
+       char nextChar = input.charAt(marker);
+       if (Character.isAlphabetic(nextChar)) {
+           return TokenType.IDENTIFIER;
+       } else if (Character.isDigit(nextChar) || nextChar == '.') {
+           return TokenType.NUMBER;
+       } else if (Character.isWhitespace(nextChar)) {
+           return TokenType.WHITESPACE;
+       } else if (nextChar == '"') {
+           return TokenType.STRING;
+       } else {
+           return TokenType.OPERATOR;
+       }
+   }
 
-    Lexer(String code) {
-        this.code = code;
-        this.codeLength = code.length();
-        this.currentChar = getCurrentChar();
-        this.currentToken = getCurrentToken();
-        this.previousToken = getPreviousToken();
-    }
+   public ArrayList<Token> tokenizer(String input) {
+       ArrayList<Token> result = new ArrayList<Token>();
+       int marker = 0;
+       try {
+           while (marker < input.length()) {
+               TokenType nextTokenType = nextTokenType(input, marker);
+               if (nextTokenType == TokenType.IDENTIFIER || nextTokenType == TokenType.NUMBER && marker < input.length()) {
+                   String tokenValue = "";
+                   while (nextTokenType(input, marker) == nextTokenType) {
+                       tokenValue += input.charAt(marker);
+                       marker++;
+                   }
+                   Token newToken = new Token(tokenValue, nextTokenType);
+                   result.add(newToken);
+               } else if (nextTokenType == TokenType.WHITESPACE) {
+                   while (nextTokenType(input, marker) == TokenType.WHITESPACE && marker < input.length()) {
+                       marker++;
+                   }
+               } else if (nextTokenType == TokenType.STRING) {
+                   String tokenValue = "";
+                   marker++;
+                   while (marker < input.length() && input.charAt(marker) != '"') {
+                       tokenValue += input.charAt(marker);
+                       marker++;
+                   }
+                   if (marker == input.length()) {
+                       throw new RuntimeException("Missing ending quote");
+                   }
+                   marker++;
+                   result.add(new Token(tokenValue, nextTokenType));
+               } else {
+                   final String[] VALID_OPERATORS = {"==", ">=", "<=", "!=", "=", "+", "-", "/", "*"};
+                   boolean foundOperator = false;
+                   for (String operator : VALID_OPERATORS) {
+                       if (input.substring(marker).startsWith(operator)) {
+                           result.add(new Token(operator, TokenType.OPERATOR));
+                           marker += operator.length();
+                           foundOperator = true;
+                           break;
+                       }
+                   }
+                   if (!foundOperator) {
+                       throw new RuntimeException("Invalid operator" + input.charAt(marker));
+                   }
+               }
+           }
+       } catch(StringIndexOutOfBoundsException e){
 
-    boolean nextToken() {
-        return nextToken();
-    }
-
-    private boolean isEndOfCode() {
-        return false;
-    }
-
-    Token getCurrentToken() {
-        return this.currentToken;
-    }
-
-    Token getPreviousToken() {
-        return this.previousToken;
-    }
-
-    TokenType readOperator() {
-        return null;
-    }
-
-    int getCurrentChar() {
-        return currentChar;
-    }
-
-    int getCodeLength() {
-        return codeLength;
-    }
-
-    private ArrayList<Character> initialize(String code) {
-        ArrayList<Character> list = new ArrayList<>();
-        for (int i = 0; i < getCodeLength(); i++) {
-            list.add(code.charAt(i));
-        }
-        return list;
-    }
-
-     Object[] tokenizer(String code) {
-        ArrayList<Character> characters;
-        characters = initialize(code);
-        ArrayList<Token> tokens = new ArrayList<>();
-        Token abc = new Token(TokenType.CONDITION);
-        for (int i = 0; i <= characters.size() - 1; i++) {
-            try {
-                if (characters.get(i) == 'i' && characters.get(i + 1) == 'f' && characters.get(i + 2) == '(') {
-                    tokens.add(new Token(TokenType.CONDITION, "if", i, i + 1));
-                    tokens.add(new Token(TokenType.CONDITION, "(", characters.get('('), characters.get('(') + 1));
-                    tokens.add(abc);
-                    System.out.println("Token found. True");
-                }
-            } catch (Exception e) {
-
-            }
-        }
-        return new ArrayList[]{tokens};
-    }
-
-//    String createToken(LinkedList ll) {
-//        for (Object c: ll) {
-//            c.toString();
-//        }
-//    }
+       }
+       return result;
+   }
 }

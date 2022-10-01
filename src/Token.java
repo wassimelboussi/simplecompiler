@@ -1,37 +1,22 @@
 enum TokenType {
-    NUMBER, IDENTIFIER, EQUAL, CONDITION, OTHER
+    NUMBER, IDENTIFIER, OPERATOR, WHITESPACE, STRING
 }
 
 public class Token {
-    private TokenType type;
-    private String value;
-    private int positionStart;
-    private int positionEnd;
 
-    Token(TokenType type, String value, int positionStart, int positionEnd) {
-        this.type = type;
-        this.value = value;
-        this.positionStart = positionStart;
-        this.positionEnd = positionEnd;
-    }
+    private String tokenValue;
+    private TokenType tokenType;
 
-    Token(TokenType type, String value, int positionStart) {
-        this.type = type;
-        this.value = value;
-        this.positionStart = positionStart;
-        this.positionEnd = positionStart + 1;
-    }
-
-
-    Token(TokenType type) {
-        this.type = type;
+    public Token(String tokenValue, TokenType tokenType) {
+        this.tokenValue = tokenValue;
+        this.tokenType = tokenType;
     }
 
     public TokenType getType() {
-        return type;
+        return tokenType;
     }
 
     public String getValue() {
-        return value;
+        return tokenValue;
     }
 }
