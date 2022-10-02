@@ -1,2 +1,2 @@
-let x=10
-if  x>=y then  if  x<=Z  then x=y * 2 else x= y/2
+if (a+b) = c
+if if

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String pathOfFile = "";
+        String pathOfFile = "C:\\Users\\Wassim\\IdeaProjects\\simplecompiler\\src\\text.txt";
         Path path = Path.of(pathOfFile);
         ReadFiles reader = new ReadFiles(path);
         String code = reader.readToString(String.valueOf(path));
