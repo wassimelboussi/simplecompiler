@@ -52,7 +52,6 @@ public class Lexer {
                    final String[] VALID_OPERATORS = {"==", ">=", "<=", "!=", "=", "+", "-", "/", "*", "(", ")"};
                    final String[] VALID_STATEMENTS = {"if"};
                    boolean foundOperator = false;
-                   boolean foundStatement = false;
                    for (String operator : VALID_OPERATORS) {
                        if (input.substring(marker).startsWith(operator)) {
                            result.add(new Token(operator, TokenType.OPERATOR));
@@ -68,13 +67,9 @@ public class Lexer {
                        if (input.substring(marker).startsWith(statement)) {
                            result.add(new Token(statement, TokenType.CONDITION));
                            marker += statement.length();
-                           foundStatement = true;
                            break;
                        }
                    }
-//                   if (!foundStatement) {
-//                       throw new RuntimeException("Invalid statement" + input.charAt(marker));
-//                   }
                }
            }
        } catch(StringIndexOutOfBoundsException ignored){
