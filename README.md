@@ -7,7 +7,7 @@ This repository contains a simple compiler implemented in Java using CUP. The co
 1. Clone the repository to your local machine:
 
     ```bash
-    git clone https://github.com/your-username/simple-java-compiler.git](https://github.com/wassimelboussi/simplecompiler.git
+    git clone https://github.com/wassimelboussi/simplecompiler.git
     ```
 
 2. Open the project in your preferred Java development environment (IDE).
